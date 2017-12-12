@@ -1,0 +1,23 @@
+<!-- Launch hokuyo node and its process node 
+    (launch hardware_test first before servo_test)-->
+<launch>
+
+  <!-- launch hokuyo perception nodes -->
+  <group>
+    <!-- hokuyo driver -->
+    <include file="$(find hokuyo_node)/launch/hokuyo_driver.launch">
+      <arg name="img_view" value="false"/>
+      <arg name="port" value="/dev/lidar"/>
+    </include>
+    <!-- hokuyo process -->
+    <node name="hokuyo_process" pkg="lidar_based_method"  type="hokuyo_process_node" output="screen">
+      <rosparam command="load" file="$(find lidar_based_method)/param/para_server.yaml" />
+      <!-- debug info show -->
+      <param name="show" type="bool" value="true"/>
+      <param name="debug" type="bool" value="false"/>
+      <param name="debug_raw" type="bool" value="false"/>
+    </node>
+  
+  </group>
+
+</launch>

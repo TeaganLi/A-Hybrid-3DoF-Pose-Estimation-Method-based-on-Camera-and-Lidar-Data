@@ -1,0 +1,28 @@
+<!-- 
+
+This launch file shows how to start a hokuyo node. 
+
+You may have to change the port parameter if your laser is not at
+/dev/ttyACM0.
+
+If you have rviz built, you can uncomment the rviz node to visualize the
+laser data.
+
+Otherwise, you can use rostopic to see the data:
+rostopic echo /scan
+
+-->
+
+<launch>
+  <arg name="img_view" default="false"/>
+  <arg name="port"     default="/dev/lidar"/>
+  <node name="hokuyo" pkg="hokuyo_node" type="hokuyo_node" respawn="false" output="screen">
+    <!-- Starts up faster, but timestamps will be inaccurate. --> 
+    <param name="calibrate_time" type="bool" value="false"/> 
+    <param name="port" type="string" value="$(arg port)"/> 
+    <param name="intensity" type="bool" value="false"/>
+  </node>
+  
+  <node if="$(arg img_view)" name="rviz" pkg="rviz" type="rviz" respawn="false" output="screen"
+        args="-d $(find hokuyo_node)/launch/hokuyo_test.rviz" />
+</launch>

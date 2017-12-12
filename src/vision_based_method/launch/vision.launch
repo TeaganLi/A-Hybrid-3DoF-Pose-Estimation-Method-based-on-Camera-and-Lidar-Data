@@ -1,0 +1,6 @@
+<!-- Launch vision based pose estimation-->
+<launch>
+
+  <node name="vision_based_method" pkg="vision_based_method" type="visual_detector" />
+
+</launch>
